@@ -1,0 +1,68 @@
+<article 
+class="relative bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 h-full flex flex-col"
+>
+@if (post().cover_image; as coverImage) {
+  <div class="relative h-48 overflow-hidden rounded-t-lg p-4">
+    <img 
+      [src]="coverImage" 
+      [alt]="post().title || 'Post cover image'"
+      class="w-full h-full object-cover"
+    />
+    <div class="absolute inset-0 "></div>
+  </div>
+} @else {
+  <div class="h-48 bg-gray-100 rounded-t-lg flex items-center">
+    <span class="text-gray-500">No image available</span>
+  </div>
+}
+
+
+<div class="p-6 flex flex-col flex-1">
+  <a 
+  [routerLink]="['/post', post().id]"
+  class="text-xl font-bold mb-3 text-gray-900 line-clamp-2 flex justify-center items-center"
+>
+  <span>{{ post().title }}</span>
+
+  <span>
+  <svg 
+    class="w-4 h-4 ml-2" 
+    fill="none" 
+    stroke="currentColor" 
+    viewBox="0 0 24 24"
+  >
+    <path 
+      stroke-linecap="round" 
+      stroke-linejoin="round" 
+      stroke-width="2" 
+      d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+    />
+  </svg>
+  </span>
+
+</a>
+
+
+  @if (post().description) {
+    <p class="text-gray-600 mb-8 line-clamp-3 flex-1">
+      {{ post().description }}
+    </p>
+  }
+
+
+
+  <div class="flex items-center gap-2 mb-4 text-sm text-gray-500">
+    @if (post().user.profile_image) {
+      <img 
+        [src]="post().user.profile_image" 
+        [alt]="post().user.name"
+        class="w-8 h-8 rounded-full"
+      />
+    }
+    <div class="flex flex-col pl-2">
+      <div class="font-medium">{{ post().user.name }}</div>
+      <div>{{ post().published_at | date: 'MMM d, y' }}</div>
+    </div>
+  </div>
+</div>
+</article>

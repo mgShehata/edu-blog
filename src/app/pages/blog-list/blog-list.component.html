@@ -1,1 +1,13 @@
-<p>blog-list works!</p>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+@if(!loading() && !error()){
+  @for (post of posts(); track post.id) {
+    <app-card [post]="post" />
+  } @empty {
+    No Posts available.
+  }
+}@else if (error()) {
+  <app-ui-error [error]="error()" />
+}@else{
+  <app-loader />
+}
+</div>
